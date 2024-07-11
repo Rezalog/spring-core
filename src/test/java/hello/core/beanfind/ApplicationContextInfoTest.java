@@ -12,8 +12,8 @@ class ApplicationContextInfoTest {
 
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
-    @DisplayName("모든 빈 출력하기")
     @Test
+    @DisplayName("모든 빈 출력하기")
     void findAllBean() {
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {
@@ -23,8 +23,8 @@ class ApplicationContextInfoTest {
         }
     }
 
-    @DisplayName("Application 빈 출력하기")
     @Test
+    @DisplayName("Application 빈 출력하기")
     void findApplicationBean() {
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {
