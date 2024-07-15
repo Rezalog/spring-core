@@ -18,10 +18,22 @@ public class StatefulServiceTest {
         StatefulService statefulService2 = ac.getBean("statefulService", StatefulService.class);
         statefulService1.order("orderA", 10000); // 1. 1의 order
         statefulService2.order("orderB", 20000); // 2. 1의 금액 조회 이전 2의 order 발생
-        int price = statefulService1.getPrice(); // 3. 1의 금액 조회
+//        int price = statefulService1.getPrice(); // 3. 1의 금액 조회
         // service 1이든 2든 싱글톤의 동일한 인스턴스라서 1의 order가 2의 order에 price 필드값이 영향을 받음
-        assertThat(price).isEqualTo(20000); 
+//        assertThat(price).isEqualTo(20000);
     }
+
+    @Test
+    void statefulServiceTest2() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(TestConfig.class);
+        StatefulService statefulService = ac.getBean("statefulService", StatefulService.class);
+        int priceA = statefulService.order("orderA", 10000);
+        int priceB = statefulService.order("orderB", 20000);
+
+        assertThat(priceA).isEqualTo(10000);
+        assertThat(priceB).isEqualTo(20000);
+    }
+
 
     static class TestConfig {
 
