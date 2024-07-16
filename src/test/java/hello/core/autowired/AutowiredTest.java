@@ -31,7 +31,7 @@ public class AutowiredTest {
 
         @Autowired(required = false)
         public void setNoBean1(Member noBean1) {
-            System.out.println("member = " + noBean1);
+            System.out.println("noBean1 = " + noBean1);
         }
 
         @Autowired

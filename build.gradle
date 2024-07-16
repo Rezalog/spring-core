@@ -13,6 +13,14 @@ java {
 	}
 }
 
+// lombok 추가 설정
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+// lombok 추가 설정 끝
+
 repositories {
 	mavenCentral()
 }
@@ -21,6 +29,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// lombok 추가 설정
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	// lombok 추가 설정 끝
 }
 
 tasks.named('test') {
