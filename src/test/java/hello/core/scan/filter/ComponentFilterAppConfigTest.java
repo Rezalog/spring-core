@@ -26,6 +26,7 @@ class ComponentFilterAppConfigTest {
 
     /**
      * @ComponentScan.Filter 의 type 프로퍼티 FilterType enum 옵션
+     *
      * ANNOTATION : default, Annotation을 인식하여 동작 - ex) 'org.example.SomAnnotation'
      * ASSIGNABLE_TYPE : 지정한 타입과 자식 타입을 인식해서 동작 - ex) 'org.example.SomeClass'
      * => @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = BeanA.class)
