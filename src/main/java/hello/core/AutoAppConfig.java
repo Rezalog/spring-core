@@ -33,6 +33,11 @@ import org.springframework.context.annotation.FilterType;
  *
  * 그래서 @ComponentScan을 쓰면 보통 @Component 로 자동 Bean 등록 및 @Autowired로 자동 의존관계 주입을 세트로 한다.
  *
+ * [@ComponentScan 대상 및 관련 프로퍼티]
+ * basePackages = "hello.core.member", "hello.core.service, // hello.core의 member,service 패키지만 @ComponentScan
+ * (default : @ComponentScan 이 붙은 설정정보 클래스의 패키지가 시작위치)
+ * basePackageClasses = AppConfig.class, // AppConfig.class 하위 패키지를 scan
+ * => 보통 해당 프로퍼티를 적용하지않은 default 로, project root 패키지에 AppConfig를 구성함
  * */
 @Configuration
 @ComponentScan(
