@@ -33,11 +33,20 @@ import org.springframework.context.annotation.FilterType;
  *
  * 그래서 @ComponentScan을 쓰면 보통 @Component 로 자동 Bean 등록 및 @Autowired로 자동 의존관계 주입을 세트로 한다.
  *
- * [@ComponentScan 대상 및 관련 프로퍼티]
+ * ============[ @ComponentScan 대상 및 관련 프로퍼티 ]============
  * basePackages = "hello.core.member", "hello.core.service, // hello.core의 member,service 패키지만 @ComponentScan
  * (default : @ComponentScan 이 붙은 설정정보 클래스의 패키지가 시작위치)
  * basePackageClasses = AppConfig.class, // AppConfig.class 하위 패키지를 scan
- * => 보통 해당 프로퍼티를 적용하지않은 default 로, project root 패키지에 AppConfig를 구성함
+ * => 보통 default 로 project root 패키지에 설정정보를 구성함(ex : @SpringBootApplication(내부에 @ComponentScan 있음)
+ *
+ * ============[ @ComponentScan 기본 대상 ]============
+ *                                                          [부가기능]
+ * 1. @Component        컴포넌트 스캔에서 사용
+ * 2. @Controller       스프링 MVC 컨트롤러에 사용          스프링 MVC Controller로 인식
+ * 3. @Service          스프링 비즈니스 로직에서 사용        개발자의 비즈니스 로직구분(특별 기능 없음)
+ * 4. @Respository      스프링 데이터 접근 계층에서 사용     스프링 데이터 접근 계층으로 인식, 데이터 계층의 예외를 스프링의 추상화된 예외로 변환
+ * 5. @Configuration    스프링 설정 정보에서 사용           스프링 설정 정보로 인식, Spring Bean이 Singleton을 유지하도록 추가 처리
+ * => 2~5는 @Component가 적용되어있음
  * */
 @Configuration
 @ComponentScan(
