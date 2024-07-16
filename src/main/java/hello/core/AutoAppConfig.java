@@ -8,7 +8,7 @@ import org.springframework.context.annotation.FilterType;
  * AppConfig 는 @Bean 을 이용하여 등록할 대상을 수동으로 지정한다.
  * @ComponentScan 은 @Component Annotation이 붙은 클래스를 찾아 자동으로 Spring Bean에 등록해준다.(Bean 기본이름 : 맨 앞 소문자 클래스명)
  * 이때, @Configuration 내부 로직에 @Component가 붙어있어 AppConfig, TestConfig 등과 충돌이 날 수 있으므로
- * exculdeFilters 속성을 이용하여 제외시킨다. (보통 이렇게까지 하지는 않음)
+ * excludeFilters 속성을 이용하여 제외시킨다. (보통 이렇게까지 하지는 않음)
  *
  * @Component 적용 대상 : MemberServiceImpl, MemoryMemberRepository, RateDiscountPolicy, OrderServiceImpl
  * @Autowired 적용 대상 : MemberServiceImpl, OrderServiceImpl
