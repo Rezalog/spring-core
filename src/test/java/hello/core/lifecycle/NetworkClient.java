@@ -30,8 +30,8 @@ import org.springframework.beans.factory.InitializingBean;
  *
  * ==============@PostConstruct, @PreDestory 적용(권장) ==============
  * 종속적인 기술이 아닌 JSR-250 자바표준(인터페이스들의 모음 같은거) 라이브러리 javax에서 지원한다.
- * 스프링이 아닌 다른 컨테이너에서도 동작함.
- * 대상 init, close 메서드에 각각 @PostConstruct, @PreDestory를 붙인다.
+ * 스프링이 아닌 다른 컨테이너에서도 동작하고, 수동 빈 등록이 아니니 @ComponentScan 과 잘 어울린다.
+ * 대상 init, close 메서드에 각각 @PostConstruct, @PreDestroy를 붙인다.
  * 외부라이브러리에서 사용할 수 없음이 유일한 단점, 이때는 위의 Bean 방법을 이용하자.
  *
  * */
