@@ -23,15 +23,12 @@ import org.springframework.beans.factory.InitializingBean;
  *
  * */
 
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient implements DisposableBean, InitializingBean{
 
     private String url;
 
     public NetworkClient() {
         System.out.println("생성자 호출, url = " + url);
-        connect();
-        call("초기화 연결 메세지");
-        disconnect();
     }
 
     public void setUrl(String url) {
@@ -49,7 +46,7 @@ public class NetworkClient implements InitializingBean, DisposableBean {
     public void disconnect() {
         System.out.println("close : " + url);
     }
-
+//
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("NetworkClient.afterPropertiesSet");
