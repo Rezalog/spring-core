@@ -44,4 +44,16 @@ public class BeanLifeCyleTest {
     connect: null
     call: null message = 초기화 연결 메세지
     close : null
+
+* === NetworkClient 에 InitializingBean, DisposableBean interface implements 후 ===
+*
+    생성자 호출, url = null
+    connect: null
+    call: null message = 초기화 연결 메세지
+    close : null
+    NetworkClient.afterPropertiesSet
+    connect: http://hello-core.dev
+    call: http://hello-core.dev message = 초기화 연결 메세지
+    NetworkClient.destroy
+    close : http://hello-core.dev
 * */
