@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * */
 
-public class BeanLifeCyleTest {
+public class BeanLifeCycleTest {
     @Test
     void lifeCycleTest() {
         ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
@@ -52,5 +52,24 @@ public class BeanLifeCyleTest {
     connect: http://hello-core.dev
     call: http://hello-core.dev message = 초기화 연결 메세지
     NetworkClient.destroy
+    close : http://hello-core.dev
+    *
+*
+*  === Bean의 init, close property 로 수정 후 ===
+*
+*   생성자 호출, url = null
+    NetworkClient.init
+    connect: http://hello-core.dev
+    call: http://hello-core.dev message = 초기화 연결 메세지
+    NetworkClient.close
+    close : http://hello-core.dev
+
+*  === @PostConstruct, @PreDestory 로 수정 후 ===
+*
+    생성자 호출, url = null
+    NetworkClient.init
+    connect: http://hello-core.dev
+    call: http://hello-core.dev message = 초기화 연결 메세지
+    NetworkClient.close
     close : http://hello-core.dev
 * */

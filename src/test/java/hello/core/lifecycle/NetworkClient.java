@@ -1,10 +1,12 @@
 package hello.core.lifecycle;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Bean lifecycle 관련 Spring 제공 interface
+ * ==============Bean lifecycle 관련 Spring 제공 interface==============
  *
  * 1. 초기화 : [InitializingBean]
  *
@@ -21,9 +23,20 @@ import org.springframework.beans.factory.InitializingBean;
  * 코드가 Spring 전용 interface에 의존적이다.
  * 즉, 초기화 및 소멸 메서드의 이름 변경이 불가능하고, 외부 라이브러리에 적용할 수 없다. 잘 사용하지않음
  *
+ * ==============Bean 의 initMethod, destoryMethod property 적용==============
+ * 등록하고자 하는 bean 의 method 의 이름을 지정, destoryMethod 의 default 는 (inferred) 로,
+ * 따로 등록하지 않으면 close나 shutdown 이름으로 등록된 메서드를 자동으로 호출한다.
+ * 대신 빈 문자열로 등록하면 안된다.
+ *
+ * ==============@PostConstruct, @PreDestory 적용(권장) ==============
+ * 종속적인 기술이 아닌 JSR-250 자바표준(인터페이스들의 모음 같은거) 라이브러리 javax에서 지원한다.
+ * 스프링이 아닌 다른 컨테이너에서도 동작함.
+ * 대상 init, close 메서드에 각각 @PostConstruct, @PreDestory를 붙인다.
+ * 외부라이브러리에서 사용할 수 없음이 유일한 단점, 이때는 위의 Bean 방법을 이용하자.
+ *
  * */
 
-public class NetworkClient implements DisposableBean, InitializingBean{
+public class NetworkClient {
 
     private String url;
 
@@ -47,16 +60,29 @@ public class NetworkClient implements DisposableBean, InitializingBean{
         System.out.println("close : " + url);
     }
 //
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("NetworkClient.afterPropertiesSet");
+//    @Override
+//    public void afterPropertiesSet() throws Exception {
+//        System.out.println("NetworkClient.afterPropertiesSet");
+//        connect();
+//        call("초기화 연결 메세지");
+//    }
+//
+//    @Override
+//    public void destroy() throws Exception {
+//        System.out.println("NetworkClient.destroy");
+//        disconnect();
+//    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메세지");
     }
 
-    @Override
-    public void destroy() throws Exception {
-        System.out.println("NetworkClient.destroy");
+    @PreDestroy
+    public void close() {
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
