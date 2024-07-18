@@ -61,11 +61,15 @@ public class LogDemoController {
         (ObjectProvider.getObject() 를 호출하시는 시점에는 HTTP 요청이 진행중이므로
         request scope 빈의 생성이 정상 처리된다.)
         *
-        *  완료
+        *  완료(2번 요청)
         * [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] request scope bean create:hello.core.common.MyLogger@3a68cc1b
         [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] [http://localhost:8080/log-demo]controller test
         [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] [http://localhost:8080/log-demo]service id = testId
         [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] request scope bean close:hello.core.common.MyLogger@3a68cc1b
+        [5c7aa779-a3d0-4e77-828b-e2a287e0c99d] request scope bean create:hello.core.common.MyLogger@75f49747
+        [5c7aa779-a3d0-4e77-828b-e2a287e0c99d] [http://localhost:8080/log-demo]controller test
+        [5c7aa779-a3d0-4e77-828b-e2a287e0c99d] [http://localhost:8080/log-demo]service id = testId
+        [5c7aa779-a3d0-4e77-828b-e2a287e0c99d] request scope bean close:hello.core.common.MyLogger@75f49747
         *
         * */
         logDemoService.logic("testId");
