@@ -29,16 +29,19 @@ import java.util.UUID;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerObjectProvider;
+    //    private final ObjectProvider<MyLogger> myLoggerObjectProvider;
+    private final MyLogger myLogger;
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest httpServletRequest) { // requestURL set
         String requestURL = httpServletRequest.getRequestURL().toString();
-        MyLogger myLogger = myLoggerObjectProvider.getObject();
+//        MyLogger myLogger = myLoggerObjectProvider.getObject();
         myLogger.setRequestURL(requestURL);
 
         myLogger.log("controller test");
+        logDemoService.logic("testId");
+
         /* expected
         *   [d06b992f...] request scope bean create
             [d06b992f...][http://localhost:8080/log-demo] controller test
@@ -71,8 +74,9 @@ public class LogDemoController {
         [5c7aa779-a3d0-4e77-828b-e2a287e0c99d] [http://localhost:8080/log-demo]service id = testId
         [5c7aa779-a3d0-4e77-828b-e2a287e0c99d] request scope bean close:hello.core.common.MyLogger@75f49747
         *
+        * 
+        * ==> 프록시 설정으로 변경(MyLogger 참조)
         * */
-        logDemoService.logic("testId");
 
         return "OK";
     }
