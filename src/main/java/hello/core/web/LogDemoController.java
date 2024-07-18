@@ -3,6 +3,7 @@ package hello.core.web;
 import hello.core.common.MyLogger;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,12 +29,13 @@ import java.util.UUID;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final MyLogger myLogger;
+    private final ObjectProvider<MyLogger> myLoggerObjectProvider;
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest httpServletRequest) { // requestURL set
         String requestURL = httpServletRequest.getRequestURL().toString();
+        MyLogger myLogger = myLoggerObjectProvider.getObject();
         myLogger.setRequestURL(requestURL);
 
         myLogger.log("controller test");
@@ -53,6 +55,18 @@ public class LogDemoController {
         스프링 애플리케이션을 실행 시키면 오류가 발생한다. 메시지 마지막에 싱글톤이라는 단어가 나오고…
         스프링 애플리케이션을 실행하는 시점에 싱글톤 빈은 생성해서 주입이 가능하지만,
         request 스코프 빈은 아직 생성되지 않는다. 이 빈은 실제 고객의 요청이 와야 생성할 수 있다
+        *
+        ==> ObjectProvider 덕분에 ObjectProvider.getObject() 를 호출하는 시점까지
+        request scope 빈의 생성을 지연할 수 있다.
+        (ObjectProvider.getObject() 를 호출하시는 시점에는 HTTP 요청이 진행중이므로
+        request scope 빈의 생성이 정상 처리된다.)
+        *
+        *  완료
+        * [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] request scope bean create:hello.core.common.MyLogger@3a68cc1b
+        [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] [http://localhost:8080/log-demo]controller test
+        [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] [http://localhost:8080/log-demo]service id = testId
+        [dbaf1f06-36db-4634-bb2d-502b2ccf03ab] request scope bean close:hello.core.common.MyLogger@3a68cc1b
+        *
         * */
         logDemoService.logic("testId");
 
