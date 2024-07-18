@@ -28,6 +28,9 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// web library 추가
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	// lombok 추가 설정
 	compileOnly 'org.projectlombok:lombok'
